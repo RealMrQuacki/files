@@ -1,0 +1,21 @@
+#include <Mouse.h>
+ 
+byte bf[3];
+void setup() {
+  Serial.begin(115200);
+  Mouse.begin();
+}
+
+void loop(){
+  if (Serial.available() > 0) {
+    Serial.readBytes(bf, 3);
+    Mouse.move(bf[0], bf[1], 0);
+    Serial.read();
+    if(bf[2]==1){
+    Mouse.click(MOUSE_MIDDLE);
+    }
+    if(bf[2]==2){
+    Mouse.click(MOUSE_RIGHT);
+    }
+  }
+}
